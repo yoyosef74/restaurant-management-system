@@ -1,0 +1,12 @@
+const router = require('express').Router();
+const ctrl = require('../controllers/userController');
+const { authenticate, authorize } = require('../middleware/auth');
+router.use(authenticate);
+router.get('/roles', ctrl.getRoles);
+router.get('/', authorize('admin','manager'), ctrl.getUsers);
+router.get('/:id', authorize('admin','manager'), ctrl.getUser);
+router.post('/', authorize('admin'), ctrl.createUser);
+router.put('/:id', authorize('admin','manager'), ctrl.updateUser);
+router.delete('/:id', authorize('admin'), ctrl.deleteUser);
+router.post('/:id/reset-password', authorize('admin','manager'), ctrl.resetPassword);
+module.exports = router;

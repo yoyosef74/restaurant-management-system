@@ -1,0 +1,12 @@
+const router = require('express').Router();
+const ctrl = require('../controllers/customerController');
+const { authenticate, authorize } = require('../middleware/auth');
+router.use(authenticate);
+router.get('/search', ctrl.searchCustomer);
+router.get('/', ctrl.getCustomers);
+router.get('/:id', ctrl.getCustomer);
+router.post('/', ctrl.createCustomer);
+router.put('/:id', ctrl.updateCustomer);
+router.delete('/:id', authorize('admin','manager'), ctrl.deleteCustomer);
+router.post('/:id/loyalty', authorize('admin','manager'), ctrl.adjustLoyaltyPoints);
+module.exports = router;

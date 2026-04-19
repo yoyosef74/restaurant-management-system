@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const ctrl = require('../controllers/reportController');
+const { authenticate, authorize } = require('../middleware/auth');
+router.use(authenticate, authorize('admin','manager'));
+router.get('/dashboard', ctrl.getDashboardStats);
+router.get('/sales', ctrl.getSalesReport);
+router.get('/items', ctrl.getItemReport);
+router.get('/staff', ctrl.getStaffReport);
+router.get('/hourly', ctrl.getHourlyReport);
+module.exports = router;
