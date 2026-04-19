@@ -25,6 +25,7 @@ const kitchenRoutes = require('./routes/kitchen');
 const dashboardRoutes = require('./routes/dashboard');
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Security
 app.use(helmet({
